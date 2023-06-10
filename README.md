@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/samjoy26/testingd/assets/64733080/c7c2e6a0-7d9e-421c-abcf-19741a2fd490" alt="Image" width="500">
+  <img src="https://github.com/samjoy26/IOC-Navigator/assets/64733080/16fc2553-c079-4219-840f-dd76e4b69c3d" alt="Image" width="500">
   <br>
 </h1>
 
