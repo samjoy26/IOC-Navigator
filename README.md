@@ -14,7 +14,7 @@ The IOC Navigator offers a simplified approach to gathering information about In
 - **Customizable Threat Intelligence Sources:** The checkbox selection feature provides users with the flexibility to choose the websites they prefer for IOC analysis. This enables users to customize the tool according to their specific requirements and utilize the threat intelligence sources they trust the most.
 
 ## Installation
-1. Go to the IOC Navigator Chrome Extension page on the Chrome Web Store:
+1. Visit the IOC Navigator Chrome Extension page: https://chrome.google.com/webstore/detail/ioc-navigator/gkofaakijioggbajokijdiokaodggjma
 2. Click "Add to Chrome".
 3. Confirm the installation by clicking "Add extension".
 4. Access the IOC Navigator by clicking its icon in the Chrome toolbar.
@@ -24,6 +24,10 @@ The IOC Navigator offers a simplified approach to gathering information about In
 2. Select the appropriate checkboxes for the preferred threat intelligence sources.
 3. Click the "Execute" button to automatically open the selected websites in separate tabs.
 4. Explore the opened tabs to gather the relevant information about the IOCs efficiently.
+
+
+https://github.com/samjoy26/IOC-Navigator/assets/64733080/3a3cc8fd-a395-4060-83e0-ccbd9aa13a23
+
 
 ## Analyzing IOCs: Threat Intelligence Sources and Processing Functions
 I have implemented Regex to validate different types of indicators of compromise (IOCs) before embedding them into a threat intelligence platform. These regex patterns include checks for domains, IP addresses, and file hashes, ensuring that the IOCs adhere to the specified formats. This validation process helps ensure the integrity and accuracy of the IOCs being processed by the threat intelligence platform.
