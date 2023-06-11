@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IOC Navigator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-container {
+      text-align: center;
+      background-color: #3498DB;
+      padding: 10px;
+    }
+
+    .header-container h1 {
+      font-size: 32px;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .category-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .category-box {
+      border: 1px solid #000;
+       /* "change according to no of functionality */
+      padding: 10px;
+      margin: 20px;
+      flex: 1 1 300px;
+      background-color: #fff;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .ioc-search-box {
+      border: 1px solid #000;
+      padding: 10px;
+      margin: 20px;
+      background-color: #fff;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 0;
+      padding: 0;
+    }
+
+    textarea {
+      width: 700px;
+      height: 100px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    button {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #191970;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00008B;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-top: 10px;
+    }
+
+    /* Custom checkbox styles */
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background-color: #fff;
+      position: relative;
+      top: 4px;
+      margin-bottom: 5px;
+    }
+
+    input[type="checkbox"]:checked {
+      background-color: #E74C3C;
+    }
+
+    input[type="checkbox"]:checked:after {
+      content: "\2714";
+      font-size: 14px;
+      color: #fff;
+      position: absolute;
+      top: 1px;
+      left: 4px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 7px;
+    }
+
+    .checkbox-container {
+      margin-right: 7px;
+    }
+
+    /* "Heading" section */
+
+    .fancy-heading {
+      background-color: #F8F8F8;
+      padding: 0px;
+      border-radius: 10px;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .fancy-heading a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .fancy-heading a:hover {
+      text-decoration: underline;
+    }
+
+    #iocInput {
+        font-size: 17px;
+    }
+
+    /* "End of Page" section */
+    #end-of-page {
+      background-color: #f8f8f8;
+      padding: 1px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+    }
+
+    .social-links {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-links li {
+      margin: 0 10px;
+    }
+
+    .social-links i {
+      font-size: 32px;
+      color: #333;
+    }
+
+    /* "Sensitive information Highlight" section */
+    .important {
+      font-weight: bold;
+      color: red;
+    }
+
+    .important-text {
+        font-size: 13px;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="fancy-heading">
+    <h1>IOC Navigator by <a href="https://github.com/samjoy26">Sam Joy</a></h1>
+    <h3>Unleashing the Power of Threat Intelligence!</h3>
+  </div>
+  
+  <div class="ioc-search-box">
+    <img src="icon.png" alt="Icon" style="width: 80px; height: 80px;">
+    <br>
+
+    <textarea id="iocInput" placeholder="1. Input the IOCs (Domains, IP addresses, URLs, or file hashes)
+2. Select the appropriate checkboxes for the preferred threat intelligence sources.
+3. Click the &quot;Execute&quot; button."></textarea><br>  
+
+
+    <button id="openPagesButton">Execute</button>
+    <br>
+    <br>
+
+    <span class="important-text">
+      <span class="important">Caution: </span>Keep your sensitive information safe by avoiding sharing it, as threat intelligence source websites may log it. Before sharing, remember to decode URLs/Base64 to check for any hidden sensitive data within IOCs. <br> <br> Rate limits are enforced on these websites, so please request responsibly!
+    </span>
+
+    <div class="checkbox-row">
+      <div class="checkbox-container">
+        <label><input type="checkbox" id="decodeCheckbox"> URL/Base64 Decoding</label>
+      </div>
+      <div class="checkbox-container">
+        <label><input type="checkbox" id="unshorten"> Unshorten[.]me API</label>
+      </div>
+      <div class="checkbox-container">
+        <label><input type="checkbox" id="uncheck-all">Check/Uncheck All</label>
+      </div>
+      <div class="checkbox-container">
+        <label><input type="checkbox" id="fangeCheckbox"> Fang IOC</label>
+      </div>
+      
+      <div class="checkbox-container">
+        <label><input type="checkbox" id="defangeCheckbox"> Defang IOC</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="category-container">
+    <div class="category-box">
+      <h2>Threat Intelligence Platforms</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="virustotal"> VirusTotal</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="talos"> Cisco Talos</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="threatminer"> ThreatMiner</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="alienvault"> AlienVault OTX</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-box">
+      <h2>IP/Domain Blacklist Check</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="abuseipdb"> AbuseIPDB</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="blacklistalert"> BlacklistAlert</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="spamhaus"> Spamhaus</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-box">
+      <h2>DNS Analysis</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="securitytrails"> SecurityTrails</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="viewdns"> ViewDNS</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="dnslytics"> dnslytics</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-box">
+      <h2>WHOIS Lookup</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="whois"> Whois</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="domaintools"> DomainTools WHOIS</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="viewdnsw"> ViewDNS</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-box">
+      <h2>IP Address Information</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="ipinfo"> IPinfo</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="viewdnsr"> ViewDNS(Reverse IP Lookup)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-box">
+      <h2>Web Sandboxing Platforms</h2>
+      <div class="checkbox-row">
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="urlquery"> URLQuery</label>
+        </div>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="urlscan"> URLScan</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="end-of-page">
+    <p>To add additional functionality or if you are facing any issues, please contact me.</p>
+    <ul class="social-links">
+      <li><a href="https://github.com/samjoy26" target="_blank"><i class="fab fa-github"></i></a></li>
+      <li><a href="https://twitter.com/samjoy_26" target="_blank"><i class="fab fa-twitter"></i></a></li>
+      <li><a href="https://www.linkedin.com/in/sam-joy-herald-immanuel" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+    </ul>
+  </div>
+  
+  <script src="execute.js"></script>
+</body>
+</html>
